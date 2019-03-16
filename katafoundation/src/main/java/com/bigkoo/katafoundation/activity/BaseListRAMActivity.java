@@ -3,6 +3,7 @@ package com.bigkoo.katafoundation.activity;
 import com.bigkoo.katafoundation.R;
 import com.bigkoo.katafoundation.mvpview.BaseListRAMView;
 import com.bigkoo.katafoundation.presenter.BaseListRAMPresenter;
+import com.bigkoo.kataframework.mvppresenter.BaseListPresenter;
 
 import java.util.List;
 
@@ -112,5 +113,12 @@ public abstract class BaseListRAMActivity<P extends BaseListRAMPresenter> extend
         } else {
             adapter.addData(datas);
         }
+        //判断加入的数据长度，如果比默认的少则没有更多内容了。这里前提是没自定义每页长度，使用默认值
+        if (datas.size() < BaseListPresenter.PAGESIZE_DEFULT) {
+            getPresenter().setHasMore(false);
+            adapter.loadMoreEnd();
+        }
+
+
     }
 }
