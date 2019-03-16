@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Android-Kata.iml" filepath="$PROJECT_DIR$/Android-Kata.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/katafoundation/katafoundation.iml" filepath="$PROJECT_DIR$/katafoundation/katafoundation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kataframework/kataframework.iml" filepath="$PROJECT_DIR$/kataframework/kataframework.iml" />
+    </modules>
+  </component>
+</project>
