@@ -3,7 +3,6 @@ package com.bigkoo.katafoundation.fragment;
 import com.bigkoo.katafoundation.R;
 import com.bigkoo.katafoundation.mvpview.BaseListRAMView;
 import com.bigkoo.katafoundation.presenter.BaseListRAMPresenter;
-import com.bigkoo.kataframework.mvppresenter.BaseListPresenter;
 
 import java.util.List;
 
@@ -26,8 +25,8 @@ public abstract class BaseListRAMFragment<P extends BaseListRAMPresenter> extend
         super.initView();
 
         recyclerView.setLayoutManager(getPresenter().getLayoutManager());
-
         if (refreshable) {
+
             ptrFrameLayout = findViewById(R.id.ptrFrameLayout);
             ptrFrameLayout.setResistance(PTRRESISTANCE);
             ptrFrameLayout.setKeepHeaderWhenRefresh(true);
@@ -51,6 +50,7 @@ public abstract class BaseListRAMFragment<P extends BaseListRAMPresenter> extend
         super.initListener();
         adapter.setOnLoadMoreListener(getPresenter().getLoadingMoreListener(), recyclerView);
         adapter.setOnItemClickListener(getPresenter().getOnItemClickListener());
+        adapter.setOnItemChildClickListener(getPresenter().getOnItemChildClickListener());
     }
 
 
@@ -73,6 +73,25 @@ public abstract class BaseListRAMFragment<P extends BaseListRAMPresenter> extend
         }
     }
 
+    @Override
+    public void onStatusEmpty(String msg) {
+
+    }
+
+    @Override
+    public void onStatusLoading(boolean statusLoading) {
+
+    }
+
+    @Override
+    public void onStatusError(boolean statusError, int code, String msg) {
+
+    }
+
+    @Override
+    public void onStatusNetworkError(boolean statusNetworkError, String msg) {
+
+    }
 
     @Override
     public void onLoadComplete() {
@@ -83,9 +102,10 @@ public abstract class BaseListRAMFragment<P extends BaseListRAMPresenter> extend
         }
     }
 
-    public void addData(List<Object> datas) {
+    public void addData(List datas) {
         if (datas == null || datas.isEmpty()) {
             getPresenter().setHasMore(false);
+            adapter.loadMoreEnd();
             return;
         }
         if (getPresenter().isFirstPage()) {
@@ -93,11 +113,24 @@ public abstract class BaseListRAMFragment<P extends BaseListRAMPresenter> extend
         } else {
             adapter.addData(datas);
         }
-        //判断加入的数据长度，如果比默认的少则没有更多内容了。这里前提是没自定义每页长度，使用默认值
-        if (datas.size() < BaseListPresenter.PAGESIZE_DEFULT) {
+        if (datas.size() < getPresenter().getPageSize()) {
             getPresenter().setHasMore(false);
             adapter.loadMoreEnd();
         }
 
+    }
+
+    public void addData(Object data){
+        if (data == null) return;
+        adapter.addData(data);
+    }
+    public void addData(int position,Object data){
+        if (data == null) return;
+        adapter.addData(position,data);
+        adapter.notifyItemRangeChanged(position + adapter.getHeaderLayoutCount(),adapter.getItemCount()-position );//通知数据与界面重新绑定
+    }
+
+    public Object getItem(int position){
+        return adapter.getItem(position);
     }
 }

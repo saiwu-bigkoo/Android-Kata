@@ -1,6 +1,5 @@
 package com.bigkoo.kataframework.mvppresenter;
 
-import com.bigkoo.kataframework.http.constants.HttpStatusConstants;
 import com.bigkoo.kataframework.http.observer.HttpResultObserver;
 import com.bigkoo.kataframework.mvpview.BaseListView;
 
@@ -67,9 +66,9 @@ public abstract class BaseListPresenter<V extends BaseListView> extends BaseData
         page++;
     }
 
-    public void addData(Object data){
+    public void addData(Object data, String msg){
         this.datas.add(data);
-        view.onDataSetChange(data);
+        view.onDataSetChange(data, msg);
     }
 
     public boolean isDataEmpty() {
@@ -105,7 +104,7 @@ public abstract class BaseListPresenter<V extends BaseListView> extends BaseData
         setHasMore(true);
         setLoadingMore(false);
         if(!isOnce())
-            setStatusLoading(true);
+            setStatusLoading();
         try {
             onLoadHttpData();
         }catch (NullPointerException e){}
@@ -134,46 +133,41 @@ public abstract class BaseListPresenter<V extends BaseListView> extends BaseData
         if(observable!=null) {
             onCallHttpRequest(observable,callBack);
         }
-        else{
-            setStatusLoading(false);
-        }
     }
 
 
     public HttpResultObserver callBack = new HttpResultObserver<Object>() {
         @Override
         public void onHttpSuccess(Object resultData, String msg) {
-            setStatusError(false, HttpStatusConstants.CODE_SUCCESS, msg);
-            setStatusNetworkError(false, msg);
 
             //如果是第一页就清空旧数据再加入新数据
             if(isFirstPage()) {
                 clearDatas();
             }
             if(resultData != null) {
-                addData(resultData);
+                addData(resultData, msg);
             }
             else {
                 setHasMore(false);
+                if(isDataEmpty()){
+                    setStatusEmpty(msg);
+                }
             }
         }
 
         @Override
         public void onHttpFail(int code, String msg) {
-            setStatusError(true,code,msg);
+            setStatusError(code,msg);
         }
 
         @Override
         public void onNetWorkError(String msg) {
-            setStatusNetworkError(true,msg);
+            setStatusNetworkError(msg);
         }
 
         @Override
         public void onComplete() {
             setOnce(true);
-            setStatusLoading(false);
-            if(!isStatusError()&&!isStatusNetworkError())
-                setStatusEmpty(isDataEmpty());
 
             setRefreshing(false);
 

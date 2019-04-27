@@ -7,15 +7,15 @@ package com.bigkoo.kataframework.mvpview;
 public interface BaseDataView extends IBaseView {
     void onRefreshing(boolean refreshing);
 
-    void onStatusEmpty(boolean statusEmpty);
+    void onStatusEmpty(String msg);
 
-    void onStatusLoading(boolean statusLoading);
+    void onStatusLoading();
 
-    void onStatusError(boolean statusError, int code, String msg);
+    void onStatusError(int code, String msg);
 
-    void onStatusNetworkError(boolean statusNetworkError, String msg);
+    void onStatusNetworkError(String msg);
 
-    void onDataSetChange(Object data);
+    void onDataSetChange(Object data, String msg);
 
     void onLoadComplete();
 }

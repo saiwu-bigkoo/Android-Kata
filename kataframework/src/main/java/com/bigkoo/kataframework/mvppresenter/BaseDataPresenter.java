@@ -53,36 +53,36 @@ public abstract class BaseDataPresenter<V extends BaseDataView> extends BasePres
         return statusEmpty;
     }
 
-    public void setStatusEmpty(boolean statusEmpty) {
-        this.statusEmpty = statusEmpty;
-        view.onStatusEmpty(statusEmpty);
+    public void setStatusEmpty(String msg) {
+        this.statusEmpty = true;
+        view.onStatusEmpty(msg);
     }
 
     public boolean isStatusLoading() {
         return statusLoading;
     }
 
-    public void setStatusLoading(boolean statusLoading) {
-        this.statusLoading = statusLoading;
-        view.onStatusLoading(statusLoading);
+    public void setStatusLoading() {
+        this.statusLoading = true;
+        view.onStatusLoading();
     }
 
     public boolean isStatusError() {
         return statusError;
     }
 
-    public void setStatusError(boolean statusError, int code, String msg) {
-        this.statusError = statusError;
-        view.onStatusError(statusError,code,msg);
+    public void setStatusError(int code, String msg) {
+        this.statusError = true;
+        view.onStatusError(code,msg);
     }
 
     public boolean isStatusNetworkError() {
         return statusNetworkError;
     }
 
-    public void setStatusNetworkError(boolean statusNetworkError, String msg) {
-        this.statusNetworkError = statusNetworkError;
-        view.onStatusNetworkError(statusNetworkError,msg);
+    public void setStatusNetworkError(String msg) {
+        this.statusNetworkError = true;
+        view.onStatusNetworkError(msg);
     }
 
     public void onLoadComplete(){
