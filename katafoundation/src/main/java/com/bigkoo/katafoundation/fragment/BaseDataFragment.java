@@ -16,11 +16,10 @@ import com.bigkoo.kataframework.utils.TUtil;
 public abstract class BaseDataFragment <P extends BaseDataPresenter> extends BaseLazyFragment{
     private P presenter;
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         initPresenter();
-        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     protected void initPresenter() {
