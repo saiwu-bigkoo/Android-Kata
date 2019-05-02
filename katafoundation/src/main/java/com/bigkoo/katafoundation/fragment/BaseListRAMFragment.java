@@ -79,17 +79,17 @@ public abstract class BaseListRAMFragment<P extends BaseListRAMPresenter> extend
     }
 
     @Override
-    public void onStatusLoading(boolean statusLoading) {
+    public void onStatusLoading() {
 
     }
 
     @Override
-    public void onStatusError(boolean statusError, int code, String msg) {
+    public void onStatusError(int code, String msg) {
 
     }
 
     @Override
-    public void onStatusNetworkError(boolean statusNetworkError, String msg) {
+    public void onStatusNetworkError(String msg) {
 
     }
 
