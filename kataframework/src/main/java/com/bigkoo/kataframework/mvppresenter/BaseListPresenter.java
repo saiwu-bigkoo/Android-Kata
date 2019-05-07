@@ -60,6 +60,7 @@ public abstract class BaseListPresenter<V extends BaseListView> extends BaseData
 
     public void setLoadingMore(boolean loadingMore) {
         isLoadingMore = loadingMore;
+        view.onLoadingMore(loadingMore);
     }
 
     public void setPageAdd(){

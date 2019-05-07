@@ -20,7 +20,6 @@ public abstract class BaseListFragment<P extends BaseListPresenter> extends Base
         adapter = getAdapter();
         adapter.bindToRecyclerView(recyclerView);
         recyclerView.setAdapter(adapter);
-        adapter.disableLoadMoreIfNotFullPage();
     }
 
 
