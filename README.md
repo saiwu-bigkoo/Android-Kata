@@ -15,5 +15,5 @@ Demo如下：
 
 [KataDemo-账房先生](https://github.com/saiwu-bigkoo/KataDemo-androidlite)
 
-实战如下，一个月一个人在不加班情况下完成80%功能，后加入团队的小伙伴三分钟上手一个月零一周完成所有功能进入测试阶段，不到三个月妥妥的上线：
+实战如下，一个月一个人在不加班情况下完成80%功能，后加入团队的小伙伴三分钟上手一个月零一周完成所有功能进入测试阶段，提前完成妥妥的等着品牌发布会当天进行上线：
 [广汽蔚来新能源汽车app-合创](https://a.app.qq.com/o/simple.jsp?pkgname=com.gac.nioapp)
